@@ -1,0 +1,51 @@
+{
+  "name": "my-web-fetch",
+  "displayName": "My Web Fetch",
+  "description": "Fetch web page text for GitHub Copilot.",
+  "version": "0.0.1",
+  "publisher": "your-name",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguageModelTool:my-web-fetch_fetch"
+  ],
+  "contributes": {
+    "languageModelTools": [
+      {
+        "name": "my-web-fetch_fetch",
+        "displayName": "My Web Fetch",
+        "toolReferenceName": "my_fetch",
+        "canBeReferencedInPrompt": true,
+        "icon": "$(globe)",
+        "userDescription": "Fetch the text content of a web page.",
+        "modelDescription": "Fetch the text content of a web page from the provided HTTP or HTTPS URL. Use this tool when the user explicitly asks to read, inspect, summarize, or analyze a web page.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The HTTP or HTTPS URL to fetch."
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "additionalProperties": false
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./"
+  },
+  "dependencies": {
+    "request-light": "^0.9.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.100.0",
+    "typescript": "^5.8.0"
+  }
+}
