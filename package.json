@@ -1,0 +1,68 @@
+{
+  "name": "my-web-fetch",
+  "displayName": "My Web Fetch",
+  "description": "A custom tool that fetches and summarizes web page content for GitHub Copilot.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languageModelTools": [
+      {
+        "name": "get_web_content",
+        "toolReferenceName": "get_web_content",
+        "displayName": "Get Web Content",
+        "userDescription": "Fetches a URL, extracts its readable text, and summarizes it.",
+        "modelDescription": "Fetches the content of a given URL, extracts the main readable text (stripping HTML tags), and returns a concise summary of the page. Use this tool whenever the user provides a URL and asks for its content, summary, or key points. Input must be a valid URL starting with http:// or https://.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The full URL of the web page to fetch and summarize (e.g., https://example.com/article)."
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      }
+    ],
+    "configuration": {
+      "title": "Get Web Content Tool",
+      "properties": {
+        "getWebContent.useVSCodeProxy": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use VS Code's http.proxy setting when fetching URLs."
+        },
+        "getWebContent.maxContentChars": {
+          "type": "number",
+          "default": 12000,
+          "description": "Maximum number of characters to send to the model for summarization."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.95.0",
+    "@types/node": "20.x",
+    "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "cheerio": "^1.0.0",
+    "https-proxy-agent": "^7.0.5",
+    "http-proxy-agent": "^7.0.2"
+  }
+}
